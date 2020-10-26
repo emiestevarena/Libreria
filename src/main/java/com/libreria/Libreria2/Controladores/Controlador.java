@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.libreria.Libreria2.Servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.ModelMap;
 /**
  *
@@ -31,13 +32,20 @@ public class Controlador {
     }
     
     @GetMapping("/login")
-    public String login(){
+    public String login(@RequestParam(required=false) String error, ModelMap modelo){
+        if (error!=null) modelo.put("error","usuario o contraseña erróneos");
         return "login.html";
     }
     
     @GetMapping("/registro")
     public String registro(){
         return "registro.html";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
+    @GetMapping("/Inicio")
+    public String inicio(){
+        return "inicio.html";
     }
     
     @PostMapping("/registrar")
