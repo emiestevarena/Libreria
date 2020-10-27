@@ -32,14 +32,20 @@ public class ClienteS implements UserDetailsService {
     @Transactional
     public void alta(Long id,String nombre,String apellido,String domicilio,String telefono) throws ServiceException{
         verificar(id,nombre,apellido,domicilio,telefono);
-        Cliente c = new Cliente();
-        c.setId(id);
-        c.setNombre(nombre);
-        c.setApellido(apellido);
-        c.setDomicilio(domicilio);
-        c.setTelefono(telefono);
-        clienteR.save(c);
-        c=null;
+        Optional<Cliente> cliente = clienteR.findById(id);
+        if(!cliente.isPresent()){
+            Cliente c = new Cliente();
+            c.setId(id);
+            c.setNombre(nombre);
+            c.setApellido(apellido);
+            c.setDomicilio(domicilio);
+            c.setTelefono(telefono);
+            clienteR.save(c);
+            c=null;
+        }else{
+            throw new ServiceException("Cliente existente");
+        }
+        
     }
     
     @Transactional
@@ -87,7 +93,9 @@ public class ClienteS implements UserDetailsService {
      * @return
      * @throws UsernameNotFoundException
      */
+    
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
         try{
             Long id2 = Long.parseLong(id);
@@ -106,5 +114,12 @@ public class ClienteS implements UserDetailsService {
         catch(UsernameNotFoundException u){
             throw new UsernameNotFoundException("Error en el login");
         }
+    }
+    
+    @Transactional
+    public Cliente getCliente(Long id){
+        Optional<Cliente> cliente = clienteR.findById(id);
+        if(cliente.isPresent()) return cliente.get();
+        else return null;
     }
 }

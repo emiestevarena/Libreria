@@ -5,6 +5,7 @@
  */
 package com.libreria.Libreria2.Controladores;
 
+import com.libreria.Libreria2.Entidades.*;
 import com.libreria.Libreria2.Exception.ServiceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,8 @@ public class Controlador {
         return "index.html";
     }
     
+    
+    // ver por qué va a /logincheck y tira 404
     @GetMapping("/login")
     public String login(@RequestParam(required=false) String error, ModelMap modelo){
         if (error!=null) modelo.put("error","usuario o contraseña erróneos");
@@ -64,4 +67,23 @@ public class Controlador {
         }
         return "redirect:/";
     }
+    
+    @PostMapping("/logincheck")
+    public String loginCheck(ModelMap modelo,
+                              @RequestParam(required=true) String DNI, 
+                              @RequestParam(required=true) String apellido)
+                              throws ServiceException{
+        
+        Cliente c = clienteS.getCliente(Long.parseLong(DNI));
+        if(c==null){
+            modelo.put("error", "Cliente no registrado");
+            return "redirect:/login";
+        }else if(apellido.trim().equals(c.getApellido())){
+            return "redirect:/";
+        }else{
+            modelo.put("error", "Los datos no coinciden");
+            return "redirect:/login";
+        }
+    }
+    
 }

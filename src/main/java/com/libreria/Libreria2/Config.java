@@ -24,8 +24,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class Config extends WebSecurityConfigurerAdapter {
+    
     @Autowired
-    @Qualifier("ClienteS")
+    @Qualifier("clienteS")
     public ClienteS clienteS;
     
     @Autowired
