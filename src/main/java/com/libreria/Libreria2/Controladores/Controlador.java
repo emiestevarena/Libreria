@@ -46,7 +46,7 @@ public class Controlador {
     }
     
     @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
-    @GetMapping("/Inicio")
+    @GetMapping("/inicio")
     public String inicio(){
         return "inicio.html";
     }
@@ -78,12 +78,19 @@ public class Controlador {
         if(c==null){
             modelo.put("error", "Cliente no registrado");
             return "redirect:/login";
+        }else if(c.getId()==0 && apellido.trim().equals(c.getApellido())){
+            return "redirect:/admin";
         }else if(apellido.trim().equals(c.getApellido())){
-            return "redirect:/";
+            return "redirect:/inicio";
         }else{
             modelo.put("error", "Los datos no coinciden");
             return "redirect:/login";
         }
+    }
+    
+    @GetMapping("/admin")
+    public String admin(){
+        return "admin.html";
     }
     
 }
