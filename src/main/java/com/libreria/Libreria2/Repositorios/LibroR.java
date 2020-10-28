@@ -18,6 +18,6 @@ import org.springframework.data.repository.query.Param;
 @Repository
 public interface LibroR extends JpaRepository<Libro,Long>{
     
-    @Query("Select l from Libro l where l.title like ':titulo'")
+    @Query("Select l from Libro l where l.title like :titulo")
     public Libro buscarPorTitulo(@Param("titulo") String titulo);
 }

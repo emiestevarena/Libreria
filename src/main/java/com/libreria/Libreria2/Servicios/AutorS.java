@@ -8,9 +8,11 @@ package com.libreria.Libreria2.Servicios;
 import com.libreria.Libreria2.Repositorios.AutorR;
 import com.libreria.Libreria2.Exception.ServiceException;
 import com.libreria.Libreria2.Entidades.Autor;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
+import java.util.UUID;
 import javax.transaction.Transactional;
 
 /**
@@ -24,11 +26,14 @@ public class AutorS{
     
     @Transactional
     public void alta(String nombre) throws ServiceException{
+        if(autorR.autorPorNombre(nombre)==null){
         validar(nombre);
         Autor a = new Autor();
         a.setNombre(nombre);
         autorR.save(a);
-        a=null;
+        }else{
+            throw new ServiceException("Autor repetido");
+        }
     }
     
     @Transactional
@@ -37,21 +42,23 @@ public class AutorS{
         if(autor.isPresent()){
             Autor a = autor.get();
             autorR.delete(a);
-            a=null;
         }
     }
     
     @Transactional
     public void modificacion(String id, String nombre) throws ServiceException{ 
         validar(nombre);
+        if(autorR.autorPorNombre(nombre)==null){
         Optional<Autor> autor = autorR.findById(id);
         if(autor.isPresent()){
         Autor a = autor.get();
         a.setNombre(nombre);
-        autorR.save(a);
-        a=null;}
+        autorR.save(a);}
         else{
             throw new ServiceException("Autor inexistente");
+        }
+        }else{
+            throw new ServiceException("Autor repetido");
         }
     }
     
@@ -59,5 +66,9 @@ public class AutorS{
         if(nombre == null || nombre.isEmpty()){
             throw new ServiceException("nombre vacío");
         }
+    }
+    
+    public List<Autor> consultar(){
+        return autorR.findAll();
     }
 }

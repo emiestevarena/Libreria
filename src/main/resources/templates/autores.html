@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+    <head>
+        <title>Libreria - Egg autores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/css/styles.css" type="text/css" th:ref="@{/css/styles.css}"/>  
+    </head>
+    <body>
+        <header>
+            <h1>Autores</h1>
+        </header>
+        <nav>
+            <div>
+                <h2>Alta</h2>
+                <form action="/alta_autor" method="POST">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre">
+                        <button type="submit">¡Listo!</button>
+                </form>
+            </div>
+        </nav>
+        <footer>
+            <a href="/logout">Logout</a>
+            <a href="/editoriales">Editoriales</a>
+            <a href="/clientes">Clientes</a>
+            <a href="/prestamos">Prestamos</a>
+            <a href="/libros">Libros</a>
+        </footer>
+    </body>
+</html>

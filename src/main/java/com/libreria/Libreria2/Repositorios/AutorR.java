@@ -17,4 +17,7 @@ import org.springframework.data.repository.query.Param;
 @Repository
 public interface AutorR extends JpaRepository<Autor,String> {
     
+    @Query("select a from Autor a where a.nombre like :nombre")
+    public Autor autorPorNombre(@Param("nombre") String nombre);
+    
 }
