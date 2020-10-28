@@ -30,6 +30,8 @@ public class Libro implements Serializable {
     public List<Editorial> editoriales;
     
     public Libro(){}
+
+  
     
     public Long getId() {
         return id;

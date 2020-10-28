@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.libreria.Libreria2.Servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.ModelMap;
 /**
  *
@@ -32,11 +34,11 @@ public class Controlador {
         return "index.html";
     }
     
-    
-    // ver por qué va a /logincheck y tira 404
+  
     @GetMapping("/login")
-    public String login(@RequestParam(required=false) String error, ModelMap modelo){
-        if (error!=null) modelo.put("error","usuario o contraseña erróneos");
+    public String login(@RequestParam(required=false) String error, @RequestParam(required=false) String logout, ModelMap modelo){
+        if (error!=null && !error.isEmpty()){ modelo.put("error","usuario o contraseña erróneos");}
+        if (logout!=null&& !logout.isEmpty()){ modelo.put("logout","has cerrado la sesión");}
         return "login.html";
     }
     
@@ -57,10 +59,12 @@ public class Controlador {
                           @RequestParam(required=true) String nombre,
                           @RequestParam(required=true) String apellido,
                           @RequestParam(required=true) String domicilio, 
-                          @RequestParam(required=true) String telefono)
+                          @RequestParam(required=true) String telefono,
+                          @RequestParam(required=true) String password,
+                          @RequestParam(required=true) String username)
                           throws ServiceException{
         try{
-        clienteS.alta(Long.parseLong(DNI), nombre, apellido, domicilio, telefono);
+        clienteS.alta(Long.parseLong(DNI), nombre, apellido, domicilio, telefono,password,username);
         }catch(ServiceException e){
             modelo.put("error",e.getMessage());
             return "redirect:/registro";
@@ -68,26 +72,7 @@ public class Controlador {
         return "redirect:/";
     }
     
-    @PostMapping("/logincheck")
-    public String loginCheck(ModelMap modelo,
-                              @RequestParam(required=true) String DNI, 
-                              @RequestParam(required=true) String apellido)
-                              throws ServiceException{
-        
-        Cliente c = clienteS.getCliente(Long.parseLong(DNI));
-        if(c==null){
-            modelo.put("error", "Cliente no registrado");
-            return "redirect:/login";
-        }else if(c.getId()==0 && apellido.trim().equals(c.getApellido())){
-            return "redirect:/admin";
-        }else if(apellido.trim().equals(c.getApellido())){
-            return "redirect:/inicio";
-        }else{
-            modelo.put("error", "Los datos no coinciden");
-            return "redirect:/login";
-        }
-    }
-    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
     @GetMapping("/admin")
     public String admin(){
         return "admin.html";

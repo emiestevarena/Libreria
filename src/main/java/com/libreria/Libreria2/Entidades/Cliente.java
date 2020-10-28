@@ -18,17 +18,48 @@ import javax.persistence.Id;
 @Entity
 public class Cliente implements Serializable {
 
-    //private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long documento;
     private String nombre;
     private String apellido;
     private String domicilio;
     private String telefono;
+    private String username;
+    private String password;
     
     public Cliente(){}
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Long documento) {
+        this.documento = documento;
+    }
+    
+    
+    
     public Long getId() {
         return id;
     }

@@ -26,13 +26,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class Config extends WebSecurityConfigurerAdapter {
     
     @Autowired
-    @Qualifier("clienteS")
     public ClienteS clienteS;
     
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(clienteS).
-        passwordEncoder(new BCryptPasswordEncoder());
+        auth
+            .userDetailsService(clienteS)
+            .passwordEncoder(new BCryptPasswordEncoder())
+                ;
     }
     
     
@@ -40,22 +41,22 @@ public class Config extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-
-                .antMatchers("/css/*", "/js/*", "/img/*", "/**","/main/**","/usuario/**","/actividad/**","/login/**", "/glosario/**").permitAll()
-                .and().formLogin()
-                    .loginPage("/login")
-                        .loginProcessingUrl("/logincheck")
-                        .usernameParameter("email")
-                        .passwordParameter("clave")
-                        .defaultSuccessUrl("/inicio")
-                        .failureUrl("/login?error=error")
-                        .permitAll()
-                .and().logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/buscador")
+                .antMatchers("/css/*", "/js/*", "/img/**")
+                .permitAll()
+            .and().formLogin()
+                .loginPage("/login")
+                    .loginProcessingUrl("/logincheck")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/inicio")
+                    .failureUrl("/login?error=error")
                     .permitAll()
-                .and().csrf()
-                    .disable();
+            .and().logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .permitAll()
+            .and().csrf()
+                .disable();
     }
 
     

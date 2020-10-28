@@ -4,28 +4,34 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
     <head>
         <title>Libreria Egg - Registro</title>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="../static/css/styles.css" type="text/css" th:ref="@{/css/styles.css}"/>     
     </head>
     <body>
-        <div>
+        <a href="registro.html"></a>
+        <section class="form">
             <h2>¡Registrate!</h2>
             <form action="/registrar" method="POST">
                 <p th:if="${error !=null}"></p>
                 <label>DNI</label>
-                <input type="number" class="form-control" name="DNI">
+                <input type="number" class="form-control" name="DNI"/>
                 <label>Nombre</label>
-                <input type="text" class="form-control" name="nombre">
+                <input type="text" class="form-control" name="nombre"/>
                 <label>Apellido</label>
-                <input type="text" class="form-control" name="apellido">
+                <input type="text" class="form-control" name="apellido"/>
                 <label>Domicilio</label>
-                <input type="text" class="form-control" name="domicilio">
+                <input type="text" class="form-control" name="domicilio"/>
                 <label>Teléfono</label>
-                <input type="text" class="form-control" name="telefono">
+                <input type="text" class="form-control" name="telefono"/>
+                <label>Usuario</label>
+                <input type="text" class="form-control" name="username"/>
+                <label>Contraseña</label>
+                <input type="password" class="form-control" name="password"/>
                 <button type="submit" class="btn-btn-primary">"¡Listo!"</button>
             </form>
-        </div>
+        </section>
     </body>
 </html>
