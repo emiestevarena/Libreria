@@ -6,35 +6,49 @@ and open the template in the editor.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
     <head>
-        <title>Librería Egg - Editoriales</title>
+        <title>Libreria Egg - Libros</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <header>
-            <h1>Editoriales</h1>
+            <h1>Libros</h1>
         </header>
         <nav>
             <div>
                 <h2>Alta</h2>
-                <form action="/alta_editorial" method="POST">
-                     <p th:if="${erroralta!=null}" th:text="${erroralta}" style="color:red"></p>
+                <form action="/alta_libro" method="POST">
+                    <p th:if="${erroralta!=null}" th:text="${erroralta}" style="color:red"></p>
                     <label>Nombre</label>
                     <input type="text" name="nombre">
-                        <button type="submit">¡Listo!</button>
+                    <label>Autor</label>
+                    <select multiple="2" name="autores">
+                        <option th:each="autor :${autores}" th:value="${autor.id}" th:text="${autor.nombre}"></option>
+                    </select>
+                    <label>Editoriales</label>
+                    <select multiple="3" name="editoriales">
+                        <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option>
+                    </select>
+                    <label>Año</label>
+                    <input type="number" name="year">
+                    <label>Ejemplares disponibles</label>
+                    <input type="number" name="disponibles">    
+                    <label>Ejemplares prestados</label>
+                    <input type="number" name="prestados">
+                    <button type="submit">¡Listo!</button>
                 </form>
             </div>
             <div>
                 <h2>Consulta</h2>
                 <table>
                     <select>
-                        <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}" ></option>
+                        <option th:each="libro : ${libros}" th:value="${libro.id}" th:text="${libro.title}" ></option>
                     </select> 
                 </table>
             </div>
             <div>
                 <h2>Modificar</h2>
-                <form action="/modificar_editorial" method="POST">
+              <!--  <form action="/modificar_libro" method="POST">
                 <label>Nombre Viejo</label>
                 <select name="nombreviejo">
                     <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option>
@@ -42,17 +56,17 @@ and open the template in the editor.
                 <label>Nombre Nuevo</label>
                 <input type="text" name="nombrenuevo"/>
                 <button type="submit">¡Listo!</button>
-                </form>
+                </form> -->
             </div>
             <div>
                 <h2>Baja</h2>
-                <form action="/baja_editorial" method="POST">
+             <!--   <form action="/baja_libro" method="POST">
                 <label>Nombre Viejo</label>
                 <select name="nombreviejo">
                     <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option>
                 </select>
                 <button type="submit">¡Listo!</button>
-                </form>
+                </form> -->
             </div>
         </nav>
         <footer>
@@ -60,7 +74,7 @@ and open the template in the editor.
             <a href="/autores">Autores</a>
             <a href="/clientes">Clientes</a>
             <a href="/prestamos">Prestamos</a>
-            <a href="/libros">Libros</a>
+            <a href="/editoriales">Editoriales</a>
         </footer>
     </body>
 </html>

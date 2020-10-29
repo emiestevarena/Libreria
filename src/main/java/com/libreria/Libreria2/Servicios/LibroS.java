@@ -76,4 +76,8 @@ public class LibroS {
         if(borrowed==null||borrowed<0) throw new ServiceException("ejemplares prestados vacío");
         if(available==null||available<0) throw new ServiceException("ejemplares disponibles vacío");
     }
+    
+    public List<Libro> consulta(){
+        return libroR.findAll();
+    }
 }

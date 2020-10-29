@@ -64,4 +64,8 @@ public class EditorialS {
     public List<Editorial> consulta(){
         return editorialR.findAll();
     }
+    
+    public Editorial get(String id){
+        return editorialR.getOne(id);
+    }
 }

@@ -70,4 +70,8 @@ public class AutorS{
     public List<Autor> consultar(){
         return autorR.findAll();
     }
+    
+    public Autor get(String id){
+        return autorR.getOne(id);
+    }
 }
