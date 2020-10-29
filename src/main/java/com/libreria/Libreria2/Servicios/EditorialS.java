@@ -7,6 +7,7 @@ package com.libreria.Libreria2.Servicios;
 import com.libreria.Libreria2.Repositorios.EditorialR;
 import com.libreria.Libreria2.Exception.ServiceException;
 import com.libreria.Libreria2.Entidades.Editorial;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
@@ -58,5 +59,9 @@ public class EditorialS {
         if(nombre == null || nombre.isEmpty()){
             throw new ServiceException("nombre vacío");
         }
+    }
+    
+    public List<Editorial> consulta(){
+        return editorialR.findAll();
     }
 }

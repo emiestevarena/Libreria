@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+    <head>
+        <title>Librería Egg - Editoriales</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <h1>Editoriales</h1>
+        </header>
+        <nav>
+            <div>
+                <h2>Alta</h2>
+                <form action="/alta_editorial" method="POST">
+                     <p th:if="${erroralta!=null}" th:text="${erroralta}" style="color:red"></p>
+                    <label>Nombre</label>
+                    <input type="text" name="nombre">
+                        <button type="submit">¡Listo!</button>
+                </form>
+            </div>
+            <div>
+                <h2>Consulta</h2>
+                <table>
+                    <select>
+                        <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}" ></option>
+                    </select> 
+                </table>
+            </div>
+            <div>
+                <h2>Modificar</h2>
+                <form action="/modificar_editorial" method="POST">
+                <label>Nombre Viejo</label>
+                <select name="nombreviejo">
+                    <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option>
+                </select>
+                <label>Nombre Nuevo</label>
+                <input type="text" name="nombrenuevo"/>
+                <button type="submit">¡Listo!</button>
+                </form>
+            </div>
+            <div>
+                <h2>Baja</h2>
+                <form action="/baja_editorial" method="POST">
+                <label>Nombre Viejo</label>
+                <select name="nombreviejo">
+                    <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option>
+                </select>
+                <button type="submit">¡Listo!</button>
+                </form>
+            </div>
+        </nav>
+        <footer>
+            <a href="/logout">Logout</a>
+            <a href="/autores">Autores</a>
+            <a href="/clientes">Clientes</a>
+            <a href="/prestamos">Prestamos</a>
+            <a href="/libros">Libros</a>
+        </footer>
+    </body>
+    </body>
+</html>

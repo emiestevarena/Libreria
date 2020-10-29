@@ -35,7 +35,6 @@ public class AutorC {
                           @RequestParam(required=false) String altaok,
                           ModelMap modelo){
         if(erroralta!=null){modelo.put("erroralta","error en el alta");}
-        if(altaok!=null){modelo.put("altaok","alta exitosa");}
         List<Autor> autores = autorS.consultar();
         modelo.put("autores",autores);
         return "autores.html";
@@ -64,7 +63,7 @@ public class AutorC {
         return "redirect:/autores";
     }
     
-      @PostMapping("/baja_autor")
+    @PostMapping("/baja_autor")
     public String baja(@RequestParam(required=true) String nombreviejo,
                                     ModelMap modelo){
         try{
