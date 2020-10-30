@@ -89,6 +89,60 @@ public class LibroC {
         }catch(ServiceException e){
             modelo.put("error",e.getMessage());
         }
-        return "redirect/libros";
+        return "redirect:/libros";
     }
+    
+    @PostMapping("/modificar_libro")
+    public String modificar(@RequestParam(required=true) String id,
+                       @RequestParam(required=false) String nombre,
+                       @RequestParam(required=false) List<String> autores,
+                       @RequestParam(required=false) List<String> editoriales,
+                       @RequestParam(required=false) String year,
+                       @RequestParam(required=false) String prestados,
+                       @RequestParam(required=false) String disponibles,
+                        ModelMap modelo){
+        try{
+        Long idOK = Long.parseLong(id);
+        Libro l= libroS.get(idOK);
+        
+        if(nombre != null && !nombre.isEmpty()){l.setTitle(nombre);}
+        
+        if(autores != null){
+            List<Autor> autoresOK = new ArrayList<>();
+            for(String i: autores){
+                Autor a = autorS.get(i);
+                autoresOK.add(a);
+            }
+            l.setAutores(autoresOK);
+        }
+        if(editoriales != null){
+            List<Editorial> editorialesOK = new ArrayList<>();
+            for(String i: editoriales){
+                Editorial e = editorialS.get(id);
+                editorialesOK.add(e);
+            }
+            l.setEditoriales(editorialesOK);
+        }
+        if(year != null && !year.isEmpty()){
+            Integer y = Integer.parseInt(year);
+            l.setYear(y);
+        }
+        
+        if(prestados != null && !prestados.isEmpty()){
+            Integer p = Integer.parseInt(prestados);
+            l.setBorrowed(p);
+        }
+        
+        if(disponibles != null && !disponibles.isEmpty()){
+            Integer d = Integer.parseInt(disponibles);
+            l.setAvailable(d);
+        }
+        
+        libroS.modificacion(l.getId(),l.getTitle(),l.getYear(),l.getBorrowed(),l.getAvailable(),l.getAutores(),l.getEditoriales());
+        }catch(ServiceException e){
+            modelo.put("error",e.getMessage());
+        }
+        return "redirect:/libros";
+    }
+    
 }

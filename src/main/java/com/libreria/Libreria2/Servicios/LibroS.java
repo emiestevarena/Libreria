@@ -80,4 +80,8 @@ public class LibroS {
     public List<Libro> consulta(){
         return libroR.findAll();
     }
+    
+    public Libro get(Long id){
+        return libroR.getOne(id);
+    }
 }

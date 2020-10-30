@@ -56,26 +56,54 @@ and open the template in the editor.
                             </span>
                             <span>Editorial/es </span>
                                 <span th:each="editorial :${libro.editoriales}">
-                                    <span th:text="${editorial.nombre}"></span>
-                                
+                                    <span th:text="${editorial.nombre}"></span>    
                             </span>    
                         </option>
-                     <!--   <p th:each="autor : ${libros.autores}" th:text="${autor.nombre}"></p>
-                        <p th:each="editorial : ${libros.editoriales}" th:text="${editorial.nombre}"></p> -->
                     </select>
       </table>
             </div>
             <div>
                 <h2>Modificar</h2>
-              <!--  <form action="/modificar_libro" method="POST">
-                <label>Nombre Viejo</label>
-                <select name="nombreviejo">
-                    <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option>
+                <form action="/modificar_libro" method="POST">
+                <label>Libro</label>
+                <select name="id">
+                    <option th:each="libro : ${libros}" th:value="${libro.id}">
+                        <span>Título: </span>
+                                <span th:text="${libro.title}"></span>
+                            <span>Año: </span>    
+                                <span th:text="${libro.year}"></span>
+                            <span>Disponibles: </span>    
+                                <span th:text="${libro.available}"></span>
+                            <span>Prestados: </span>    
+                                <span th:text="${libro.borrowed}"></span>
+                            <span>Autor/es: </span>    
+                                <span th:each="autor :${libro.autores}">
+                                    <span th:text="${autor.nombre}"></span>
+                            </span>
+                            <span>Editorial/es </span>
+                                <span th:each="editorial :${libro.editoriales}">
+                                    <span th:text="${editorial.nombre}"></span>    
+                            </span>
+                    </option>
                 </select>
-                <label>Nombre Nuevo</label>
-                <input type="text" name="nombrenuevo"/>
+                    <label>Nombre</label>
+                    <input type="text" name="nombre">
+                    <label>Autor</label>
+                    <select multiple="2" name="autores">
+                        <option th:each="a :${autores}" th:value="${a.id}" th:text="${a.nombre}"></option>
+                    </select>
+                    <label>Editoriales</label>
+                    <select multiple="3" name="editoriales">
+                        <option th:each="e : ${editoriales}" th:value="${e.id}" th:text="${e.nombre}"></option>
+                    </select>
+                    <label>Año</label>
+                    <input type="number" name="year">
+                    <label>Ejemplares disponibles</label>
+                    <input type="number" name="disponibles">    
+                    <label>Ejemplares prestados</label>
+                    <input type="number" name="prestados">
                 <button type="submit">¡Listo!</button>
-                </form> -->
+                </form>
             </div>
             <div>
                 <h2>Baja</h2>
