@@ -21,12 +21,12 @@ public class Libro implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
-    private Integer year;
+    private Integer pyear;
     private Integer borrowed;
     private Integer available;
-    @OneToMany
+    @ManyToMany
     public List<Autor> autores;
-    @OneToMany
+    @ManyToMany
     public List<Editorial> editoriales;
     
     public Libro(){}
@@ -50,11 +50,11 @@ public class Libro implements Serializable {
     }
 
     public Integer getYear() {
-        return year;
+        return pyear;
     }
 
     public void setYear(Integer year) {
-        this.year = year;
+        this.pyear = year;
     }
 
     public Integer getBorrowed() {

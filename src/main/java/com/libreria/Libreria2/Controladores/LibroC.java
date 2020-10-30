@@ -79,4 +79,16 @@ public class LibroC {
         }
         return "redirect:/libros";
     }
+    
+    @PostMapping("/baja_libro")
+    public String baja(@RequestParam(required=true) String id,
+                       ModelMap modelo){
+        try{
+            Long idOK = Long.parseLong(id);
+            libroS.baja(idOK);
+        }catch(ServiceException e){
+            modelo.put("error",e.getMessage());
+        }
+        return "redirect/libros";
+    }
 }
