@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
+    <head>
+        <title>Libreria Egg - Clientes</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/css/styles.css" type="text/css" th:ref="@{/css/styles.css}"/>  
+    </head>
+    <body>
+    <header>
+            <h1>Clientes</h1>
+        </header>
+     <nav>
+            <div>
+                <h2>Alta</h2>
+                <form styles="form" action="/alta_cliente" method="POST">
+                <label>DNI</label>
+                <input type="number" class="form-control" name="DNI"/>
+                <label>Nombre</label>
+                <input type="text" class="form-control" name="nombre"/>
+               <label>Apellido</label>
+                <input type="text" class="form-control" name="apellido"/>
+                <label>Domicilio</label>
+                <input type="text" class="form-control" name="domicilio"/>
+                <label>Teléfono</label>
+                <input type="text" class="form-control" name="telefono"/>
+                <label>Usuario</label>
+                <input type="text" class="form-control" name="username"/>
+                <label>Contraseña</label>
+                <input type="password" class="form-control" name="password"/>
+                <button type="submit" class="btn-btn-primary">"¡Listo!"</button>
+                </form>
+            </div>
+            <div>
+                <h2>Consulta</h2>
+                    <select>
+                        <option th:each="cliente : ${clientes}" th:value="${cliente.id}"> 
+                            <span>Nombre: </span>
+                                <span th:text="${cliente.nombre}"></span>
+                            <span>Apellido: </span>    
+                                <span th:text="${cliente.apellido}"></span>
+                            <span>Dirección: </span>    
+                                <span th:text="${cliente.domicilio}"></span>
+                            <span>Telefono: </span>    
+                                <span th:text="${cliente.telefono}"></span>
+                            <span>Documento: </span>    
+                                <span th:text="${cliente.documento}"></span>
+                            <span>Usuario</span>
+                                <span th:text="${cliente.username}"></span>    
+                        </option>
+                    </select>
+      
+            </div>
+            <div>
+                <h2>Modificar</h2>
+                <form action="/modificar_cliente" method="POST">
+                <label>Libro</label>
+                <select name="id">
+                    <option th:each="cliente : ${clientes}" th:value="${cliente.id}"> 
+                            <span>Nombre: </span>
+                                <span th:text="${cliente.nombre}"></span>
+                            <span>Apellido: </span>    
+                                <span th:text="${cliente.apellido}"></span>
+                            <span>Dirección: </span>    
+                                <span th:text="${cliente.domicilio}"></span>
+                            <span>Telefono: </span>    
+                                <span th:text="${cliente.telefono}"></span>
+                            <span>Documento: </span>    
+                                <span th:text="${cliente.documento}"></span>
+                            <span>Usuario</span>
+                                <span th:text="${cliente.username}"></span>    
+                        </option>
+                </select>
+                    <label>Nombre</label>
+                    <input type="text" name="nombre">
+                    <label>Apellido</label>
+                    <input type="text" name="apellido">
+                    <label>Dirección</label>
+                    <input type="text" name="domicilio">
+                    <label>Teléfono</label>
+                    <input type="text" name="teléfono">
+                    <label>Documento</label>
+                    <input type="number" name="documento">    
+                    <label>Usuario</label>
+                    <input type="text" name="usuario">
+                    <label>Contraseña</label>
+                    <input type="password" name="clave">
+                <button type="submit">¡Listo!</button>
+                </form>
+            </div>
+            <div>
+                <h2>Baja</h2>
+                <form action="/baja_cliente" method="POST">
+                    <label>Libro</label>
+                    <select name="id">
+                        <option th:each="cliente : ${clientes}" th:value="${cliente.id}"> 
+                            <span>Nombre: </span>
+                                <span th:text="${cliente.nombre}"></span>
+                            <span>Apellido: </span>    
+                                <span th:text="${cliente.apellido}"></span>
+                            <span>Dirección: </span>    
+                                <span th:text="${cliente.domicilio}"></span>
+                            <span>Telefono: </span>    
+                                <span th:text="${cliente.telefono}"></span>
+                            <span>Documento: </span>    
+                                <span th:text="${cliente.documento}"></span>
+                            <span>Usuario</span>
+                                <span th:text="${cliente.username}"></span>    
+                        </option>
+                    </select>
+                <button type="submit">¡Listo!</button>
+                </form>
+            </div>
+        </nav>
+        <footer>
+            <a href="/logout">Logout</a>
+            <a href="/autores">Autores</a>
+            <a href="/libros">Libros</a>
+            <a href="/prestamos">Prestamos</a>
+            <a href="/editoriales">Editoriales</a>
+        </footer>    
+    </body>
+</html>

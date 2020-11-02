@@ -151,4 +151,8 @@ public class ClienteS implements UserDetailsService {
             return null;
         }
     }
+    
+    public List<Cliente> consulta(){
+        return clienteR.findAll();
+    }
 }
