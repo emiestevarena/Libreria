@@ -57,5 +57,49 @@ public class ClienteC {
         }
         return "redirect:/clientes";
     }
-            
+    
+    @PostMapping("/modificar_cliente")
+    public String modificar(ModelMap modelo,
+                          @RequestParam(required=true) String id,
+                          @RequestParam(required=false) String DNI,
+                          @RequestParam(required=false) String nombre,
+                          @RequestParam(required=false) String apellido,
+                          @RequestParam(required=false) String domicilio, 
+                          @RequestParam(required=false) String telefono,
+                          @RequestParam(required=false) String password,
+                          @RequestParam(required=false) String username)
+                          throws ServiceException{
+        Long idOK = Long.parseLong(id);
+        Cliente c = clienteS.getCliente(idOK);
+        if(DNI!=null && !DNI.isEmpty()){
+            Long DNIok = Long.parseLong(DNI);
+            c.setDocumento(DNIok);
+        }
+        if(nombre != null && !nombre.isEmpty()) c.setNombre(nombre);
+        if(apellido != null && !apellido.isEmpty()) c.setApellido(apellido);
+        if(domicilio != null && !domicilio.isEmpty()) c.setDomicilio(domicilio);
+        if(telefono != null && !telefono.isEmpty()) c.setTelefono(telefono);
+        if(username != null && !username.isEmpty()) c.setUsername(username);
+        if(password != null && !password.isEmpty()) c.setPassword(password);
+        
+        try{
+        clienteS.modificacion(idOK,c.getDocumento(),c.getNombre(),c.getApellido(),c.getDomicilio(),c.getTelefono(),c.getPassword(),c.getUsername());
+        }catch(ServiceException e){
+            modelo.put("error",e.getMessage());
+        }
+        return "redirect:/clientes";
+    }
+    
+    @PostMapping("/baja_cliente")
+    public String baja(ModelMap modelo,
+                          @RequestParam(required=true) String id)
+                          throws ServiceException{
+        Long idOK = Long.parseLong(id);
+        try{
+        clienteS.baja(idOK);
+        }catch(ServiceException e){
+            modelo.put("error",e.getMessage());
+        }
+        return "redirect:/clientes";
+    }
 }

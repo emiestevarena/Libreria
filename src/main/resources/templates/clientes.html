@@ -18,7 +18,8 @@ and open the template in the editor.
      <nav>
             <div>
                 <h2>Alta</h2>
-                <form styles="form" action="/alta_cliente" method="POST">
+                <form id="form" action="/alta_cliente" method="POST">
+                <p th:if="${error!=null}" th:text="${error}" style="color:red"></p>
                 <label>DNI</label>
                 <input type="number" class="form-control" name="DNI"/>
                 <label>Nombre</label>
@@ -59,6 +60,7 @@ and open the template in the editor.
             <div>
                 <h2>Modificar</h2>
                 <form action="/modificar_cliente" method="POST">
+                <p th:if="${error!=null}" th:text="${error}" style="color:red"></p>
                 <label>Libro</label>
                 <select name="id">
                     <option th:each="cliente : ${clientes}" th:value="${cliente.id}"> 
@@ -96,6 +98,7 @@ and open the template in the editor.
             <div>
                 <h2>Baja</h2>
                 <form action="/baja_cliente" method="POST">
+                    <p th:if="${error!=null}" th:text="${error}" style="color:red"></p>
                     <label>Libro</label>
                     <select name="id">
                         <option th:each="cliente : ${clientes}" th:value="${cliente.id}"> 
