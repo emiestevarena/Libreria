@@ -27,9 +27,9 @@ public class Prestamo implements Serializable {
     @Temporal (TemporalType.DATE)
     private Date devolucion;
     private Double multa;
-    @OneToMany
+    @ManyToMany
     private List<Libro> libros;
-    @OneToMany
+    @ManyToMany
     private List<Cliente> clientes;
     
     

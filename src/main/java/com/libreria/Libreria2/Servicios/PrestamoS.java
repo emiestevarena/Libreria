@@ -7,6 +7,9 @@ package com.libreria.Libreria2.Servicios;
 import com.libreria.Libreria2.Repositorios.PrestamoR;
 import com.libreria.Libreria2.Exception.ServiceException;
 import com.libreria.Libreria2.Entidades.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
@@ -32,7 +35,6 @@ public class PrestamoS {
        p.setClientes(clientes);
        p.setLibros(libros);
        prestamoR.save(p);
-       p=null;
    }
    
    @Transactional
@@ -68,12 +70,42 @@ public class PrestamoS {
    }
    
    private void verificar(Date entrega,Date devolucion,Double multa,List<Libro> libros,List<Cliente> clientes) throws ServiceException{
-       Date d = new Date();
-       if(entrega==null||entrega.before(d)) throw new ServiceException("Fecha de entrega inválida");
-       if(devolucion==null||devolucion.before(d)) throw new ServiceException("Fecha de devolución inválida");
-       d=null;
+       if(entrega==null) throw new ServiceException("Fecha de entrega inválida");
+       if(devolucion==null||devolucion.before(entrega)) throw new ServiceException("Fecha de devolución inválida");
        if(multa==null||multa<0) throw new ServiceException("Multa inválida");
        if(libros==null||libros.isEmpty()) throw new ServiceException("Libros inválidos");
        if(clientes==null||clientes.isEmpty()) throw new ServiceException("Clientes inválidos");
    }
+   
+   public List<Prestamo> consulta(){
+       List<Prestamo> iterate = prestamoR.findAll();
+       Date d = new Date();
+       for(Prestamo p: iterate){
+           if(d.after(p.getDevolucion())){
+               long fechaInicialMs = d.getTime();
+               long fechaFinalMs = p.getDevolucion().getTime();
+               long diferencia = fechaFinalMs - fechaInicialMs;
+               double dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+               p.setMulta(-dias*3.50);
+               prestamoR.save(p);
+           }
+       }
+       return prestamoR.findAll();
+   }
+   
+   public Prestamo getPrestamo(String id){
+       Prestamo p = prestamoR.getOne(id);
+       Date d = new Date();
+       if(d.after(p.getDevolucion())){
+               long fechaInicialMs = d.getTime();
+               long fechaFinalMs = p.getDevolucion().getTime();
+               long diferencia = fechaFinalMs - fechaInicialMs;
+               double dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+               p.setMulta(dias*3.50);
+               prestamoR.save(p);
+           }
+       return prestamoR.getOne(id);
+   }
+   
+  
 }

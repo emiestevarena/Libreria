@@ -13,7 +13,7 @@
             <a href="/misprestamos">Mis Préstamos</a>
         </div>
         <div>
-            <p th:if="${session.clientesession!=null}" th:text="@{session.clientesession.nombre + ' ' + session.clientesession.apellido}">
+            <p th:if="${session.clientesession!=null}" th:text="${session.clientesession.nombre + ' ' + session.clientesession.apellido}">
         </div>
     </body>
 </html>

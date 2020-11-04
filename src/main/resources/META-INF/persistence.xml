@@ -4,9 +4,9 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.libreria.Libreria2.Entidades.Cliente</class>
     <class>com.libreria.Libreria2.Entidades.Editorial</class>
-    <class>com.libreria.Libreria2.Entidades.Prestamo</class>
     <class>com.libreria.Libreria2.Entidades.Autor</class>
     <class>com.libreria.Libreria2.Entidades.Libro</class>
+    <class>com.libreria.Libreria2.Entidades.Prestamo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/libreria?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

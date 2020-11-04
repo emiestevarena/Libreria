@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Préstamos - Librería Egg</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <h1>Préstamos</h1>
+        </header>
+        <nav>
+            <div>
+                <h2>Alta</h2>
+                <form action="/alta_prestamo" method="POST">
+                    <label>Libros</label>
+                    <p th:if="${error!=null}" th:text="${error}" style="color:red"></p>
+                    <select multiple="3" name="librosOK">
+                        <option>
+                            <option th:each="libro : ${libros}" th:value="${libro.id}" th:text="${libro.title}"></option>
+                        </option>
+                    </select>
+                    <label>Cliente</label>
+                    <select multiple="2" name="clientesOK">
+                        <option>
+                            <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.username}"></option>
+                        </option>
+                    </select>
+                    <label>Fecha de entrega</label>
+                    <input name="entrega" type="date" value="2017-06-01">
+                    <label>Fecha de devolución</label>
+                    <input name="devolucion" type="date" value="2017-06-01">
+                    <button type="submit"/>¡Listo!</button>
+                </form>
+            </div>
+            <div>
+                <h2>Consulta</h2>
+                <select>
+                    <option th:each="prestamo :${prestamos}" th:value="${prestamo.id}">
+                        <span>Clientes: </span>
+                        <span th:each="cliente : ${prestamo.clientes}">
+                            <span th:text="${cliente.username}"></span>
+                        </span>
+                        <span>Libros: </span>
+                        <span th:each="libro : ${prestamo.libros}">
+                            <span th:text="${libro.title}"></span>
+                            <span> de </span>
+                            <span th:each="autor : ${libro.autores}">
+                                <span th:text="${autor.nombre}"></span>
+                            </span>
+                        </span>
+                        <span>Entrega: </span>
+                        <span th:text="${prestamo.entrega}" value="yyyy-mm-dd"></span>
+                        <span>Devolución: </span>
+                        <span th:text="${prestamo.devolucion}" value="yyyy-mm-dd"></span>
+                        <span> Multa: </span>
+                        <span th:text="'$'+${prestamo.multa}"></span>
+                    </option>
+                </select>
+            </div>
+            <div>
+                <h2>Modificacion</h2>
+                <p>¡Recordar que las fechas se modifican aunque no las toquen!</p>
+                <form action="/modificar_prestamo" method="POST">
+                    <select name="id">
+                        <option th:each="prestamo :${prestamos}" th:value="${prestamo.id}">
+                            <span>Clientes: </span>
+                            <span th:each="cliente : ${prestamo.clientes}">
+                                <span th:text="${cliente.username}"></span>
+                            </span>
+                            <span>Libros: </span>
+                            <span th:each="libro : ${prestamo.libros}">
+                                <span th:text="${libro.title}"></span>
+                                <span> de </span>
+                                <span th:each="autor : ${libro.autores}">
+                                    <span th:text="${autor.nombre}"></span>
+                                </span>
+                            </span>
+                            <span>Entrega: </span>
+                            <span th:text="${prestamo.entrega}" value="yyyy-mm-dd"></span>
+                            <span>Devolución: </span>
+                            <span th:text="${prestamo.devolucion}" value="yyyy-mm-dd"></span>
+                            <span> Multa: </span>
+                            <span th:text="'$'+${prestamo.multa}"></span>
+                        </option>
+                    </select>
+                    <label>Cliente</label>
+                    <select multiple="2" name="clientesOK">
+                        <option>
+                            <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.username}"></option>
+                        </option>
+                    </select>
+                    <label>Fecha de entrega</label>
+                    <input name="entrega" type="date" value="2017-06-01">
+                    <label>Fecha de devolución</label>
+                    <input name="devolucion" type="date" value="2017-06-01">
+                    <label>Multa</label>
+                    <input name="multa" type="number" step="0.01">
+                    <button type="submit"/>¡Listo!</button>
+                </form>    
+            </div>
+            <div>
+                <h2>Baja</h2>
+                <form action="/baja_prestamo" method="POST">
+                <select name="id">
+                    <option th:each="prestamo :${prestamos}" th:value="${prestamo.id}">
+                        <span>Clientes: </span>
+                        <span th:each="cliente : ${prestamo.clientes}">
+                            <span th:text="${cliente.username}"></span>
+                        </span>
+                        <span>Libros: </span>
+                        <span th:each="libro : ${prestamo.libros}">
+                            <span th:text="${libro.title}"></span>
+                            <span> de </span>
+                            <span th:each="autor : ${libro.autores}">
+                                <span th:text="${autor.nombre}"></span>
+                            </span>
+                        </span>
+                        <span>Entrega: </span>
+                        <span th:text="${prestamo.entrega}" value="yyyy-mm-dd"></span>
+                        <span>Devolución: </span>
+                        <span th:text="${prestamo.devolucion}" value="yyyy-mm-dd"></span>
+                        <span> Multa: </span>
+                        <span th:text="'$'+${prestamo.multa}"></span>
+                    </option>
+                </select>
+                    <button type="submit">¡Listo!</button>
+                </form>
+            </div>
+        </nav>
+        <footer>
+            <a href="/logout">Logout</a>
+            <a href="/autores">Autores</a>
+            <a href="/libros">Libros</a>
+            <a href="/clientes">Clientes</a>
+            <a href="/editoriales">Editoriales</a>
+        </footer>
+    </body>
+</html>
