@@ -63,7 +63,7 @@ public class PrestamoC {
                        @RequestParam(required=true) String devolucion) throws ServiceException{
         try{
         
-         
+            
             Date ent = Fecha.parseFechaGuiones(entrega);
             Date dev = Fecha.parseFechaGuiones(devolucion);
             List<Libro> libros = new ArrayList();

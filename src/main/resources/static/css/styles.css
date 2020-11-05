@@ -1,3 +1,7 @@
+div{
+    padding-top: 20px;
+}
+
 form{   margin: 0 auto;
         text-align: center;
         display: grid;
@@ -12,12 +16,23 @@ body{
         background-color: yellow;
         font-family: sans-serif;
         font-kerning: auto;
+        
     }  
+
+ .inicio-form{
+       width: 75%;
+    }
     
 #header1{
         display: inline-block;
         background-color: yellow;
     }
+ 
+input{
+      
+      border: 40px;
+     
+    } 
     
     nav{
         
@@ -81,6 +96,11 @@ body{
         border-top: 40px;
     }
     
+    label{
+        font-weight: bold;
+        padding-top: 20px;
+    }
+    
     a{
         background-color: black;
         color: white;
@@ -93,4 +113,11 @@ body{
             -webkit-border-radius: 7px;
         padding: 10px;
         text-decoration:none;
+    }
+    
+    nav{
+        background-attachment: scroll;
+        background-image: url("/img/huevos.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
     }

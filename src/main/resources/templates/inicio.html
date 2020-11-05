@@ -8,16 +8,97 @@
         <link rel="stylesheet" href="/css/styles.css"/>  
     </head>
     <body>
-        <header class="header1">
-            <a href="/logout">Logout</a>
-            <a href="/devoluciones">Devolver</a>
-            <a href="/prestamo">Tomar Prestado</a>
-            <a href="/misprestamos">Mis Préstamos</a>
-        </header>
-        <nav>
+        <header>
             <h1>Bienvenido</h1>
             <h2 th:if="${session.clientesession!=null}" th:text="${session.clientesession.nombre + ' ' + session.clientesession.apellido}">
             </h2>
+            <a href="/logout">Logout</a>
+        </header>
+        <nav>
+            <div>
+                <h2>Tomar Prestado</h2>
+                <form action="/prestamo" method="POST">
+                    <hidden name="clienteId" th:if="${session.clientesession!=null}" th:value="${session.clientesession.id}" ></hidden>
+                    <label>Libros</label>
+                    <select multiple="3" name="librosOK">
+                            <option th:each="libro : ${libros}" th:value="${libro.id}">
+                                <span th:text="${libro.title}">
+                                    <span> de 
+                                        <span th:each="autor : ${libro.autores}">
+                                            <span th:text="${autor.nombre}"></span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </option>
+                    </select>
+                    <label>Fecha de devolución</label>
+                    <input name="devolucion" type="date" value="2017-06-01">
+                    <button type="submit">¡Listo!</button>
+                </form>
+            </div>
+            <div>
+                <h2>Extensiones</h2>
+                <form class="inicio-form" action="/extension" method="POST">
+                    <select>
+                        <option th:each="prestamo :${prestamos}" th:value="${prestamo.id}">
+                            <span>Clientes: </span>
+                            <span th:each="cliente : ${prestamo.clientes}">
+                                <span th:text="${cliente.username}"></span>
+                            </span>
+                            <span>Libros: </span>
+                            <span th:each="libro : ${prestamo.libros}">
+                                <span th:text="${libro.title}"></span>
+                                <span> de </span>
+                                <span th:each="autor : ${libro.autores}">
+                                    <span th:text="${autor.nombre}"></span>
+                                </span>
+                            </span>
+                            <span>Entrega: </span>
+                            <span th:text="${prestamo.entrega}" value="yyyy-mm-dd"></span>
+                            <span>Devolución: </span>
+                            <span th:text="${prestamo.devolucion}" value="yyyy-mm-dd"></span>
+                            <span> Multa: </span>
+                            <span th:text="'$'+${prestamo.multa}"></span>
+                        </option>
+                    </select>
+                    <label>Fecha de devolución</label>
+                    <input name="devolucion" type="date" value="2017-06-01">
+                    <button type="submit">¡Listo!</button>
+                </form>    
+            </div>
+            <div>
+                <h2>Devoluciones</h2>
+                <form class="inicio-form" action="/devoluciones" method="POST">
+                    <select>
+                        <option th:each="prestamo :${prestamos}" th:value="${prestamo.id}">
+                            <span>Clientes: </span>
+                            <span th:each="cliente : ${prestamo.clientes}">
+                                <span th:text="${cliente.username}"></span>
+                            </span>
+                            <span>Libros: </span>
+                            <span th:each="libro : ${prestamo.libros}">
+                                <span th:text="${libro.title}"></span>
+                                <span> de </span>
+                                <span th:each="autor : ${libro.autores}">
+                                    <span th:text="${autor.nombre}"></span>
+                                </span>
+                            </span>
+                            <span>Entrega: </span>
+                            <span th:text="${prestamo.entrega}" value="yyyy-mm-dd"></span>
+                            <span>Devolución: </span>
+                            <span th:text="${prestamo.devolucion}" value="yyyy-mm-dd"></span>
+                            <span> Multa: </span>
+                            <span th:text="'$'+${prestamo.multa}"></span>
+                        </option>
+                    </select>
+                    <p></p>
+                    <button type="submit">¡Listo!</button>
+                </form>
+            </div>
         </nav>
+        <footer>
+            <h3>Tu librería digital</h3>
+            <h2>¡Una lectura apasionante te está esperando!</h2>
+        </footer>
     </body>
 </html>

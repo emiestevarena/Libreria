@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import javax.transaction.Transactional;
 /**
@@ -107,5 +108,16 @@ public class PrestamoS {
        return prestamoR.getOne(id);
    }
    
-  
+   public List<Prestamo> consultaPorId(Long id){
+       List<Prestamo> a = this.consulta();
+       List<Prestamo> b = new ArrayList();
+       for(Prestamo p : a){
+           for(Cliente c: p.getClientes()){
+               if(Objects.equals(id, c.getId())){
+                   b.add(p);
+               }
+           }
+       }
+       return b;
+   }
 }
