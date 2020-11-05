@@ -8,10 +8,15 @@ and open the template in the editor.
     <head>
         <title>Libreria Egg - Registro</title>
         <meta charset="UTF-8"/>
-        <link rel="stylesheet" href="../static/css/styles.css" type="text/css" th:ref="@{/css/styles.css}"/>     
+        <link rel="stylesheet" href="/css/styles.css"/>     
     </head>
     <body>
-        <a href="registro.html"></a>
+         <header>
+            <h1>Librería Egg</h1>
+            <h3>Tu librería digital</h3>
+        </header>
+        <nav>
+        <div>
         <section class="form">
             <h2>¡Registrate!</h2>
             <form action="/registrar" method="POST">
@@ -30,8 +35,14 @@ and open the template in the editor.
                 <input type="text" class="form-control" name="username"/>
                 <label>Contraseña</label>
                 <input type="password" class="form-control" name="password"/>
-                <button type="submit" class="btn-btn-primary">"¡Listo!"</button>
+                <button type="submit">¡Listo!</button>
             </form>
         </section>
+        </div>
+        </nav>
+        <footer> 
+            <a href="/login">Login</a> 
+            <a href="/">Inicio</a>
+        </footer>
     </body>
 </html>

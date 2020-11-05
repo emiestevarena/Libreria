@@ -2,13 +2,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
     <head>
         <title>Libreria Egg</title>
-        <link rel="stylesheet" href="../static/css/styles.css" type="text/css" th:ref="@{/css/styles.css}"/>
+        <link rel="stylesheet" href="/css/styles.css"/>
         <meta charset="UTF-8"/>
     </head>
     <body>
-        <div> 
+        <header>
+            <h1>Librería Egg</h1>
+            <h3>Tu librería digital</h3>
+        </header>
+        <nav>
+            <div>
+                <h2>¡Nuestro Catálogo!</h2>
+                    <select>
+                        <option th:each="libro : ${libros}" th:value="${libro.id}"> 
+                            <span>Título: </span>
+                                <span th:text="${libro.title}"></span>
+                            <span>Año: </span>    
+                                <span th:text="${libro.year}"></span>
+                            <span>Disponibles: </span>    
+                                <span th:text="${libro.available}"></span>
+                            <span>Prestados: </span>    
+                                <span th:text="${libro.borrowed}"></span>
+                            <span>Autor/es: </span>    
+                                <span th:each="autor :${libro.autores}">
+                                    <span th:text="${autor.nombre}"></span>
+                            </span>
+                            <span>Editorial/es </span>
+                                <span th:each="editorial :${libro.editoriales}">
+                                    <span th:text="${editorial.nombre}"></span>    
+                            </span>    
+                        </option>
+                    </select>
+            </div>
+            <div>
+                <h2>¡Una lectura apasionante te está esperando!</h2>
+            </div>
+        </nav>
+        <footer> 
             <a href="/login">Login</a> 
             <a href="/registro">Registro</a>
-        </div>
+        </footer>
     </body>
 </html>

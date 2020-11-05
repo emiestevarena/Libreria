@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.libreria.Libreria2.Servicios.*;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.User;
@@ -29,8 +30,13 @@ public class Controlador {
     @Autowired
     private ClienteS clienteS;
     
+    @Autowired
+    private LibroS libroS;
+    
     @GetMapping("/")
-    public String index(){
+    public String index(ModelMap modelo){
+        List<Libro> libros = libroS.consulta();
+        modelo.put("libros",libros);
         return "index.html";
     }
     
