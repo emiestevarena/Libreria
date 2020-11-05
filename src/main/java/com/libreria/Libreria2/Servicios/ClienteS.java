@@ -155,4 +155,9 @@ public class ClienteS implements UserDetailsService {
     public List<Cliente> consulta(){
         return clienteR.findAll();
     }
+    
+    public String count(){
+        Long i = clienteR.count();
+        return i.toString();
+    }
 }

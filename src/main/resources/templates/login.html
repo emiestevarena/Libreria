@@ -3,9 +3,14 @@
     <head>
         <title>Libreria Egg</title>
         <meta charset="UTF-8"/>
-        <link rel="stylesheet" type="text/css" media="all" href="../static/css/styles.css"  th:ref="@{/css/styles.css}"/>  
+        <link rel="stylesheet" href="/css/styles.css"/>  
     </head>
     <body>
+        <header>
+            <h1>Librería Egg</h1>
+            <h3>Tu librería digital</h3>
+        </header>
+        <nav>
         <div class="form">
             <h2>Logueate</h2>
             <form action="/logincheck" method="POST" >
@@ -15,9 +20,13 @@
                 <input type="text" class="form-control" name="username" th:value="${username}"/>
                 <label>Contraseña</label> 
                 <input type="password" class="form-control" name="password" th:value="${password}"/>
-                <button type="submit" class="btn-btn-primary">"¡Listo!"</button>
+                <button type="submit" class="btn-btn-primary">¡Listo!</button>
             </form>
         </div>
-        
+        </nav>
+        <footer> 
+            <a href="/registro">Registro</a> 
+            <a href="/">Inicio</a>
+        </footer>
     </body>
 </html>

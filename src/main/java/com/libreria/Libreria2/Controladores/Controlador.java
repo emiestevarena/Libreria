@@ -19,6 +19,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.ModelMap;
+import org.springframework.ui.ModelMap;
 /**
  *
  * @author emiliano
@@ -37,6 +38,8 @@ public class Controlador {
     public String index(ModelMap modelo){
         List<Libro> libros = libroS.consulta();
         modelo.put("libros",libros);
+        String count = clienteS.count();
+        modelo.put("usuarios", count);
         return "index.html";
     }
     

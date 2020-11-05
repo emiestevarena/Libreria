@@ -92,4 +92,5 @@ body{
             -moz-border-radius: 7px;
             -webkit-border-radius: 7px;
         padding: 10px;
+        text-decoration:none;
     }
