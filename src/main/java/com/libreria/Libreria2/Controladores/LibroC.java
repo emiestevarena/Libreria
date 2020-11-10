@@ -36,7 +36,7 @@ public class LibroC {
     @Autowired
     private LibroS libroS;
     
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/libros")
     public String autores(@RequestParam(required=false) String erroralta,
                           @RequestParam(required=false) String altaok,

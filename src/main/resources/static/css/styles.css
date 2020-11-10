@@ -121,3 +121,25 @@ input{
         background-repeat: no-repeat;
         background-size: cover;
     }
+    
+   *::selection {
+    background: black;
+    color: yellow;
+    text-shadow: 1px 1px white;
+}
+
+ *::-moz-selection {
+    background: black;
+    color: yellow;
+    text-shadow: 1px 1px black;
+}
+
+input:hover, select:hover {
+  background: black;
+}
+
+
+a:hover, button:hover{
+    color: black;
+    background: yellow;
+}

@@ -10,6 +10,7 @@ import com.libreria.Libreria2.Exception.ServiceException;
 import com.libreria.Libreria2.Servicios.EditorialS;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class EditorialC {
     @Autowired
     private EditorialS editorialS;
     
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/editoriales")
     public String editoriales(@RequestParam(required=false) String erroralta,
                                 ModelMap modelo){

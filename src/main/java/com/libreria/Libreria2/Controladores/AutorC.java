@@ -29,7 +29,7 @@ public class AutorC {
     @Autowired
     private AutorS autorS;
     
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/autores")
     public String autores(@RequestParam(required=false) String erroralta,
                           @RequestParam(required=false) String altaok,

@@ -29,9 +29,20 @@ public class Cliente implements Serializable {
     private String telefono;
     private String username;
     private String password;
+    private Boolean admin;
     
     public Cliente(){}
 
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+    
+    
+    
     public String getUsername() {
         return username;
     }

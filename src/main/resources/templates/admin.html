@@ -8,15 +8,42 @@ and open the template in the editor.
     <head>
         <title>Libreria Egg - admin</title>
         <meta charset="UTF-8"/>
-        <link rel="stylesheet" href="../static/css/styles.css" type="text/css" th:ref="@{/css/styles.css}"/>  
+        <link rel="stylesheet" href="/css/styles.css"/>  
     </head>
     <body>
-        <div>
+        <header></header>
+        <nav>
+            <div>
+        <section class="form">
+            <h2>¡Registrate!</h2>
+            <form action="/registrar2" method="POST">
+                <p th:if="${error !=null}"></p>
+                <label>DNI</label>
+                <input type="number" class="form-control" name="DNI"/>
+                <label>Nombre</label>
+                <input type="text" class="form-control" name="nombre"/>
+                <label>Apellido</label>
+                <input type="text" class="form-control" name="apellido"/>
+                <label>Domicilio</label>
+                <input type="text" class="form-control" name="domicilio"/>
+                <label>Teléfono</label>
+                <input type="text" class="form-control" name="telefono"/>
+                <label>Usuario</label>
+                <input type="text" class="form-control" name="username"/>
+                <label>Contraseña</label>
+                <input type="password" class="form-control" name="password"/>
+                <button type="submit">¡Listo!</button>
+            </form>
+        </section>
+        </div>
+        </nav>
+        <footer>
+            
             <a href="/editoriales">Editoriales</a>
             <a href="/clientes">Clientes</a>
             <a href="/libros">Libros</a>
             <a href="/autores">Autores</a>
             <a href="/prestamos">Préstamos</a>
-        </div>
+        </footer>
     </body>
 </html>

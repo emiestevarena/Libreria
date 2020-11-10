@@ -36,7 +36,7 @@ public class ClienteS implements UserDetailsService {
     private ClienteR clienteR;
 
     @Transactional
-    public void alta(Long documento, String nombre, String apellido, String domicilio, String telefono, String password, String username) throws ServiceException {
+    public void alta(Long documento, String nombre, String apellido, String domicilio, String telefono, String password, String username,Boolean admin) throws ServiceException {
         verificar(documento, nombre, apellido, domicilio, telefono, password, username);
         Optional<Cliente> cliente = clienteR.buscarPorUser(username);
         if (!cliente.isPresent()) {
@@ -49,6 +49,7 @@ public class ClienteS implements UserDetailsService {
             c.setTelefono(telefono);
             c.setPassword(claveEncriptada);
             c.setUsername(username);
+            c.setAdmin(admin);
             clienteR.save(c);
             c = null;
         } else {
@@ -127,6 +128,10 @@ public class ClienteS implements UserDetailsService {
                 List<GrantedAuthority> permisos = new ArrayList<>();
                 GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_USUARIO_REGISTRADO");
                 permisos.add(p1);
+                if(c.getAdmin()){
+                    GrantedAuthority p2 = new SimpleGrantedAuthority("ROLE_ADMIN");
+                    permisos.add(p2);
+                } 
                 ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
                 HttpSession session = attr.getRequest().getSession(true);
                 session.setAttribute("clientesession", c);

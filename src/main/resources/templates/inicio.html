@@ -18,7 +18,6 @@
             <div>
                 <h2>Tomar Prestado</h2>
                 <form action="/prestamo" method="POST">
-                    <hidden name="clienteId" th:if="${session.clientesession!=null}" th:value="${session.clientesession.id}" ></hidden>
                     <label>Libros</label>
                     <select multiple="3" name="librosOK">
                             <option th:each="libro : ${libros}" th:value="${libro.id}">

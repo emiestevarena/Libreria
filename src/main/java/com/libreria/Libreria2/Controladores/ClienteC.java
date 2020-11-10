@@ -32,7 +32,7 @@ public class ClienteC {
     @Autowired
     private PrestamoS prestamoS;
     
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/clientes")
     public String clientes(ModelMap modelo){
         List<Cliente> clientes = clienteS.consulta();
@@ -51,7 +51,7 @@ public class ClienteC {
                           @RequestParam(required=true) String username)
                           throws ServiceException{
         try{
-        clienteS.alta(Long.parseLong(DNI), nombre, apellido, domicilio, telefono,password,username);
+        clienteS.alta(Long.parseLong(DNI), nombre, apellido, domicilio, telefono,password,username,false);
         }catch(ServiceException e){
             modelo.put("error",e.getMessage());
         }

@@ -42,7 +42,7 @@ public class PrestamoC {
     @Autowired
     private LibroS libroS;
     
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/prestamos")
     public String clientes(ModelMap modelo,@RequestParam(required=false) String error){
         List<Prestamo> prestamos = prestamoS.consulta();

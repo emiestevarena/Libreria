@@ -91,7 +91,7 @@ public class Controlador {
                           @RequestParam(required=true) String username)
                           throws ServiceException{
         try{
-        clienteS.alta(Long.parseLong(DNI), nombre, apellido, domicilio, telefono,password,username);
+        clienteS.alta(Long.parseLong(DNI), nombre, apellido, domicilio, telefono,password,username,false);
         }catch(ServiceException e){
             modelo.put("error",e.getMessage());
             return "redirect:/registro";
@@ -99,7 +99,26 @@ public class Controlador {
         return "redirect:/";
     }
     
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
+    @PostMapping("/registrar2")
+    public String registrar2(ModelMap modelo,
+                          @RequestParam(required=true) String DNI,
+                          @RequestParam(required=true) String nombre,
+                          @RequestParam(required=true) String apellido,
+                          @RequestParam(required=true) String domicilio, 
+                          @RequestParam(required=true) String telefono,
+                          @RequestParam(required=true) String password,
+                          @RequestParam(required=true) String username)
+                          throws ServiceException{
+        try{
+        clienteS.alta(Long.parseLong(DNI), nombre, apellido, domicilio, telefono,password,username,true);
+        }catch(ServiceException e){
+            modelo.put("error",e.getMessage());
+            return "redirect:/registro";
+        }
+        return "redirect:/login";
+    }
+    
+    
     @GetMapping("/admin")
     public String admin(){
         return "admin.html";
@@ -107,7 +126,7 @@ public class Controlador {
     
     @PostMapping("/prestamo")
     public String alta(ModelMap modelo,
-                       @RequestParam(required=true) String clienteId,
+                       HttpSession session,
                        @RequestParam(required=true) List<String> librosOK,
                        @RequestParam(required=true) String devolucion) throws ServiceException{
         try{
@@ -125,10 +144,8 @@ public class Controlador {
             }
             
             List<Cliente> clientes = new ArrayList();
-            Long id = Long.parseLong(clienteId);
-            clientes.add(clienteS.getCliente(id));
-            
-        
+            Cliente c = (Cliente) session.getAttribute("clientesession");
+            clientes.add(c);
             prestamoS.alta(ent, dev, 0.0, libros, clientes);
         }catch(ServiceException ex){
             modelo.put("error", ex.getMessage());
